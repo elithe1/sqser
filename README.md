@@ -31,7 +31,7 @@ Sqser's only entry point is a simple http server. It has
 four [endpoints](https://github.com/elithe1/sqser/blob/master/main.go) that are used for the four different functions:
 
 ```go
-    http.HandleFunc("/get-item", a.GetItem)
+http.HandleFunc("/get-item", a.GetItem)
 http.HandleFunc("/delete-item", a.DeleteItem)
 http.HandleFunc("/move-items", a.MoveItems)
 http.HandleFunc("/list-items", a.ListItems)
