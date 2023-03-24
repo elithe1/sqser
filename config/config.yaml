@@ -1,0 +1,38 @@
+substrings:
+  dlq: "-dlq"
+  environments:
+    - staging
+    - production
+
+inputs:
+  - name: slack
+    async: true
+
+filters:
+  - name: substringAllowList
+    values:
+      - dlq
+  - name: substringBlockList
+    values:
+      - developer # no dev queues should be returned :)
+  - name: slackChannelId
+    values:
+      - name: staging
+        id: C03QH16LBEJ
+      - name: production
+        id: C02LER699FX
+
+enrichers:
+  - name: logzio
+    values:
+      accounts:
+        - name: staging
+          id: 499492
+        - name: production
+          id: 499512
+      enrichFields:
+        timeStamp: timestamp # Currently, support only high level non-nested fields
+        searchField: traceId # Currently, support only high level non-nested fields
+
+outputs:
+  - name: slack
