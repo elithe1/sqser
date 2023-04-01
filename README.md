@@ -17,7 +17,7 @@ Sqser supports four core functionalities:
 
 ## 🏗️ Sqser architecture
 
-![](./docs/arch.png)
+![](docs/images/arch.png)
 Sqser loads the required plugins from the config.yaml file. Read more in the configuration section. Sqser supports
 running multiple plugins from each type. For example, we could use 'slack' as an input plugin. Invoking listQueues
 action would result in a list of non empty dlqs. Then we could pass it through a allowList filter plugin to filter for
@@ -79,6 +79,9 @@ Filters can have arbitrary values as needed to the filter
 
 Each output has it's own detailed docs.
 
+To read more about the conf file and its structure, head
+to [CONFIG.md](http://github.com/elithe1/sqser/blob/master/docs/CONFIG.md)
+
 Example conf file with all different sections:
 
 ```yaml
@@ -122,12 +125,37 @@ outputs:
   - name: slack
 ```
 
+## 🔌 Available plugins
+
+### inputs:
+
+- A plugin that recives commands from a slack slash command app
+  integration. [slack slash command plugin](https://github.com/elithe1/sqser/blob/master/plugins/inputs/slack/README.md)
+
+### Filters:
+
+- Filter that chooses only dlqs that match the originating slack channel
+  env. [slackChanId](https://github.com/elithe1/sqser/blob/master/plugins/filters/slackChanId/README.md)
+- Filter that chooses only dlqs that have a
+  substring [substringAllowList](https://github.com/elithe1/sqser/blob/master/plugins/filters/substringAllowList/README.md)
+- Filter that removes all dlqs that have specified
+  substrings [substringBlockList](https://github.com/elithe1/sqser/blob/master/plugins/filters/substringBlockList/README.md)
+
+### Enrichers:
+
+- Enriches the item with direct link to relevant
+  logs [logzio](https://github.com/elithe1/sqser/blob/master/plugins/enrichers/logzio/README.md)
+
+### Outputs:
+
+- Prints to slack response url the results of the
+  commands [slack output plugin](https://github.com/elithe1/sqser/blob/master/plugins/outputs/slack/README.md)
+
 ### 🔌 Adding new plugins
 
-Honestly, just copy and existing plugin of the same type, and try to change stuff 😅
+Honestly, just copy and existing plugin of the same type, and try to change stuff and follow the guidelines 😅
 
-1. All input plugins have to comply [Plugin interface](https://github.com/elithe1/sqser/blob/master/models/input.go)
-1. All enrichers plugins have to
-   comply [Plugin interface](https://github.com/elithe1/sqser/blob/master/models/enricher.go)
-1. All filters plugins have to comply [Plugin interface](https://github.com/elithe1/sqser/blob/master/models/filter.go)
-2. All output plugins have to comply [Plugin interface](https://github.com/elithe1/sqser/blob/master/models/output.go)
+1. [Input plugin](https://github.com/elithe1/sqser/blob/master/docs/INPUTS.md)
+1. [Filter plugin](https://github.com/elithe1/sqser/blob/master/docs/FILTERS.md)
+1. [Enricher plugin](https://github.com/elithe1/sqser/blob/master/docs/ENRICHERS.md)
+1. [Output plugin](https://github.com/elithe1/sqser/blob/master/docs/OUTPUTS.md)

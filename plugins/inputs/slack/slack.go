@@ -76,11 +76,13 @@ func (s *Slack) InvokeDeleteItem(w http.ResponseWriter, req *http.Request) *mode
 
 	args := strings.Split(text, " ")
 	if len(args) != 2 {
+		s.Log.Warn("Delete command should have exactly two args")
 		w.Write([]byte(fmt.Sprintf("Should have exactly two arguments but got %d", len(args))))
 		return nil
 	}
 	queueName := args[0]
 	if queueName == "" {
+		s.Log.Warn("Queue name was not provided")
 		w.Write([]byte("Please provide a valid queue name. For example sqs-integrations"))
 		return nil
 	}
@@ -109,6 +111,7 @@ func (s *Slack) InvokeMoveItems(w http.ResponseWriter, req *http.Request) *model
 	userName := req.FormValue("user_name")
 
 	if queueName == "" {
+		s.Log.Warn("Queue name was not provided")
 		w.Write([]byte("Please provide a valid queue name. For example sqs-integrations"))
 		return nil
 	}

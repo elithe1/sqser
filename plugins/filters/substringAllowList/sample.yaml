@@ -1,0 +1,4 @@
+filters:
+  - name: substringAllowList
+    values:
+      - dlq

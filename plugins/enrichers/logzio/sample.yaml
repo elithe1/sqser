@@ -1,0 +1,11 @@
+enrichers:
+  - name: logzio
+    values:
+      accounts:
+        - name: staging
+          id: 11111
+        - name: production
+          id: 11111
+      enrichFields:
+        timeStamp: timestamp # Currently, support only high level non-nested fields
+        searchField: traceId # Currently, support only high level non-nested fields

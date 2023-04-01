@@ -1,0 +1,4 @@
+filters:
+  - name: substringBlockList
+    values:
+      - developer
