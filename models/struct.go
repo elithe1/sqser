@@ -12,6 +12,7 @@ type GetItemActionData struct {
 	EnrichLinkBlocks []*EnrichLinkBlock
 	SQSerItem        *sqsercore.SQSerItem
 	EnvironmentName  string
+	Error            error
 }
 
 type ListItemsActionData struct {

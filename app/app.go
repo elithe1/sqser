@@ -163,7 +163,7 @@ func (app *App) processGetItem(ss *sqsercore.SQSService, ad *models.GetItemActio
 	item, err := ss.GetItem(ad.QueueName)
 	if err != nil {
 		zap.S().Errorf("Running input errored %s", err)
-		return
+		ad.Error = err
 	}
 	ad.SQSerItem = item
 	ad.EnvironmentName = app.resolveEnvironmentName(ad.QueueName)

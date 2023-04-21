@@ -55,7 +55,16 @@ func (s *Slack) InvokeGetItem(actionData *models.GetItemActionData) {
 	s.Log.Infof("Running InvokeGetItem")
 
 	var prettyJSON bytes.Buffer
+	if actionData.Error != nil {
+		messageBody := &SimpleSlackMessageResponse{
+			RespType: "peripheral",
+			Text:     fmt.Sprintf("%v", actionData.Error),
+		}
+		s.sendMessage(messageBody, actionData.SlackData.ResponseUrl)
+		return
+	}
 	item := actionData.SQSerItem
+
 	error := json.Indent(&prettyJSON, *item.MessageBody, "", "\t")
 	if error != nil {
 		log.Println("JSON parse error: ", error)
