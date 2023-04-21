@@ -167,13 +167,14 @@ func (app *App) processGetItem(ss *sqsercore.SQSService, ad *models.GetItemActio
 	}
 	ad.SQSerItem = item
 	ad.EnvironmentName = app.resolveEnvironmentName(ad.QueueName)
-	var enrichersOutput []*models.EnrichLinkBlock
-
-	for _, enricher := range app.Enrichers {
-		data := enricher.Enrich(ad)
-		enrichersOutput = append(enrichersOutput, data)
+	if item != nil {
+		var enrichersOutput []*models.EnrichLinkBlock
+		for _, enricher := range app.Enrichers {
+			data := enricher.Enrich(ad)
+			enrichersOutput = append(enrichersOutput, data)
+		}
+		ad.EnrichLinkBlocks = enrichersOutput
 	}
-	ad.EnrichLinkBlocks = enrichersOutput
 
 	for _, output := range app.Outputs {
 		output.InvokeGetItem(ad)
