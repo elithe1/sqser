@@ -1,5 +1,4 @@
 # Sqser
-
 ---
 
 <img src="https://i.ibb.co/3RgfdPD/sqser.png" width="250" height="250">
