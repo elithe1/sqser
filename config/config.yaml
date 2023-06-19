@@ -18,7 +18,7 @@ filters:
   - name: slackChannelId
     values:
       - name: staging
-        id: A03QLJS75NH
+        id: C03ELH61P52
       - name: production
         id: C02LER699FX
 
